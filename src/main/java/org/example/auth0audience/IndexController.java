@@ -4,6 +4,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,10 @@ public class IndexController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            List<String> r = webClient.get().uri("movies")
+            OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken)authentication;
+            List<String> r = webClient.get().uri(uriBuilder ->
+                            uriBuilder.pathSegment("movies").queryParam("user", oAuth2AuthenticationToken.getPrincipal().getName()).build())
+
                     .attributes(clientRegistrationId("auth0-api"))
                     .retrieve()
                     .bodyToMono(new ParameterizedTypeReference<List<String>>() {

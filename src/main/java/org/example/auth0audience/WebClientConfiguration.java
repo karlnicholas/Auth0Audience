@@ -44,7 +44,7 @@ public class WebClientConfiguration {
         return authorizedClientManager;
     }
 
-    public OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> clientCredentialsAccessTokenResponseClient() {
+    private OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> clientCredentialsAccessTokenResponseClient() {
         DefaultClientCredentialsTokenResponseClient accessTokenResponseClient =
                 new DefaultClientCredentialsTokenResponseClient();
 
