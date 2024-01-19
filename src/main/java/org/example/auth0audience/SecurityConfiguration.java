@@ -27,6 +27,8 @@ public class SecurityConfiguration {
     private String issuer;
     @Value("${spring.security.oauth2.client.registration.auth0.client-id}")
     private String clientId;
+    @Value("${spring.security.oauth2.resourceserver.jwt.audiences}")
+    private String audience;
     private final ClientRegistrationRepository clientRegistrationRepository;
 
     public SecurityConfiguration(ClientRegistrationRepository clientRegistrationRepository) {
@@ -78,6 +80,6 @@ public class SecurityConfiguration {
 
     private Consumer<OAuth2AuthorizationRequest.Builder> authorizationRequestCustomizer() {
         return customizer -> customizer
-                .additionalParameters(params -> params.put("audience", "https://auth0audience"));
+                .additionalParameters(params -> params.put("audience", audience));
     }
 }

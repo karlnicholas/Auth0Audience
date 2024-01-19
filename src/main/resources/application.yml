@@ -5,7 +5,9 @@ spring:
   security:
     oauth2:
       resourceserver:
-        jwt.issuer-uri: ${auth0audience-issuer-uri}
+        jwt:
+          issuer-uri: ${auth0audience-issuer-uri}
+          audiences: ${auth0audience-audience}
       client:
         registration:
           auth0:

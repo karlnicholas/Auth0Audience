@@ -1,5 +1,6 @@
 package org.example.auth0audience;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.*;
@@ -13,6 +14,9 @@ import java.util.Collections;
 
 @Configuration
 public class WebClientConfiguration {
+    @Value("${spring.security.oauth2.resourceserver.jwt.audiences}")
+    private String audience;
+
     @Bean
     public WebClient webClient(OAuth2AuthorizedClientManager authorizedClientManager) {
         ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2Client =
@@ -50,7 +54,7 @@ public class WebClientConfiguration {
 
         OAuth2ClientCredentialsGrantRequestEntityConverter requestEntityConverter =
                 new OAuth2ClientCredentialsGrantRequestEntityConverter();
-        requestEntityConverter.addParametersConverter(source -> CollectionUtils.toMultiValueMap(Collections.singletonMap("audience", Collections.singletonList("https://auth0audience"))));
+        requestEntityConverter.addParametersConverter(source -> CollectionUtils.toMultiValueMap(Collections.singletonMap("audience", Collections.singletonList(audience))));
         accessTokenResponseClient.setRequestEntityConverter(requestEntityConverter);
 
         return accessTokenResponseClient;
