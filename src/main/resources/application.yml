@@ -8,16 +8,11 @@ spring:
         jwt.issuer-uri: ${auth0audience-issuer-uri}
       client:
         registration:
-          auth0-login:
+          auth0:
             client-id: ${auth0audience-client-id}
             client-secret: ${auth0audience-client-secret}
             provider: auth0
             scope: openid,profile
-          auth0-api:
-            client-id: ${auth0audience-client-id}
-            client-secret: ${auth0audience-client-secret}
-            provider: auth0
-            authorization-grant-type: client_credentials
         provider:
           auth0:
             issuer-uri: ${auth0audience-issuer-uri}

@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <div sec:authorize="!isAuthenticated()">
-                <a th:href="@{/oauth2/authorization/auth0-login}" id="qsLoginBtn" class="btn btn-light nav-item nav-link">Login</a>
+                <a th:href="@{/oauth2/authorization/auth0}" id="qsLoginBtn" class="btn btn-light nav-item nav-link">Login</a>
             </div>
             <div sec:authorize="isAuthenticated()">
                 <form name="logoutForm" th:action="@{/logout}" method="get">
